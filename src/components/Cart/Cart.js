@@ -1,11 +1,27 @@
+
 import React from 'react';
 import './Cart.css';
 
 const Cart = ({ cart }) => {
+    let total = 0;
+    let shipping = 0;
+    let quantity = 0;
+    for (const product of cart) {
+        quantity = quantity + product.quantity;
+        total = total + product.price;
+        console.log(typeof product.quantity)
+        shipping = shipping + product.shipping;
+    }
+    const tax = parseFloat((total * 0.1).toFixed(2));
+    const grandTotal = total + shipping + tax;
     return (
-        <div>
-            <h4>Order Summary</h4>
-            <p>Products Adeded: {cart.length}</p>
+        <div className='cart'>
+            <h3>Order Summary</h3>
+            <p>Products Adeded: {quantity}</p>
+            <p>Total Price: ${total}</p>
+            <p>Total Shipping: ${shipping}</p>
+            <p>Tax: ${tax}</p>
+            <h5>Grand Total: ${grandTotal.toFixed(2)}</h5>
         </div>
     );
 };
